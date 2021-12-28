@@ -1,0 +1,23 @@
+{
+  "dependencies": {
+    "uglify-js": "^3.14.5",
+    "underscore": "^1.13.2"
+  },
+  "name": "week1",
+  "version": "1.0.0",
+  "description": "Week1 tutorials",
+  "main": "hello.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jiwonman/nodeproject.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jiwonman/nodeproject/issues"
+  },
+  "homepage": "https://github.com/jiwonman/nodeproject#readme"
+}
