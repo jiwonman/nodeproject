@@ -128,7 +128,15 @@ npm install uglify-js (현재 npm이 실행되는 프로젝트의 부품으로 �
 - node 5.0.0 버전 이상부터는 --save가 default모드이기 때문에 npm install (패키지 이름) 으로 실행한다.
 - npm init -> npm상에서 현재 디렉토리를 패키지로 지정하는 명령
 
+# 6. 콜백(Callback)
+- node라는 명령어를 치면 javascript를 한 줄 한 줄 실행할 수 있다.
+```
+a = [3,1,2]; function b(v1, v2){console.log('c', v1, v2);return 0}; a.sort(b); console.log(a);
+```
 
+# 7. 동기(Synchronous)와 비동기(Asynchronous)
+- fs.readFile(file[, options], callback)
+- fs.readFileSync(file[, options])
 
-
-
+## 결론
+- Nodejs의 장점은 
