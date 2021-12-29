@@ -1,4 +1,0 @@
-12.29 밤 12:00 까지 Nodejs ppt 만들기
-
-제목 : NodeJs , UIT - LAB, 이름
-목차 : 1. NodeJs란? , 2. NodeJs 설치, 실행, 3. Npm 4. Javascript 5. Javascript 기초 문법
