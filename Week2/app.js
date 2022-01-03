@@ -1,13 +1,48 @@
 const express = require('express');
-const { allowedNodeEnvironmentFlags } = require('process');
 const app = express();
 
 app.use(express.static('public'));  //정적 파일 코드
+app.use(express.urlencoded({extended:false}))
+
+app.set('view engine', 'jade');
+app.set('views', './view');
 
 app.get('/', (req, res) =>{         // '/'는 루트 
     res.send('Hello home page');                 //send : 응답을 해준다.
-
 });
+
+app.get('/form', (req, res) => {
+    res.render('form');
+})
+
+app.get('/form_receiver', (req, res) => {
+    const title = req.query.title;
+    const description = req.query.description;
+    res.send(title + ',' + description);
+})
+
+app.post('/form_receiver', (req, res) => {
+    const title = req.body.title;
+    const description = req.body.description
+    res.send(title + ',' + description);
+})
+
+app.get('/topic/:id', (req, res) => {
+    const topics = [
+        'Javascript is ...',
+        'Nodejs is ...',
+        'Express is ...'
+    ];
+
+    const output = `
+    <a href="/topic/0">Javascript</a><br>
+    <a href="/topic/1">Nodejs</a><br>
+    <a href="/topic/2">Express</a><br>
+    ${topics[req.params.id]}
+    `
+
+    res.send(output);
+})
 
 app.get('/dynamic', (req, res) => {
     let lis = '';
