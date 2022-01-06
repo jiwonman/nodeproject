@@ -19,28 +19,32 @@ app.use(express.static(__dirname));
 app.set('view engine', 'ejs');
 app.set('views', './views_mysql');
 
-app.get('/topic/new', (req, res) => {
-    fs.readdir('data/', (err, files) => {
+app.get('/topic/add', (req, res) => {
+    let sql = "select id, title from topic";
+    conn.query(sql, (err, topics, fields) => {
         if(err){
             console.log(err);
             res.status(500).send('Internal Server Error');
         }
-        res.render('new', {topics:files, title:0});
+        res.render('add', {topics:topics, id:'hell'});
     })
 });
 
-app.post('/topic', (req, res) => {
+app.post('/topic/add', (req, res) => {
     const title = req.body.title;
     const description = req.body.description;
+    const author = req.body.author;
 
-    fs.writeFile('data/' + title, description, (err) => {
+    let sql = 'insert into topic (title, description, author) values (?, ?, ?)';
+    conn.query(sql, [title, description, author], (err, result, fields) => {
         if(err){
             console.log(err);
             res.status(500).send('Internal Server Error');
+        }   else {
+            res.redirect('/topic/' + result.insertId);
         }
-        res.redirect('/topic/' + title);
-    } );
-})
+    })
+});
 
 app.get(['/topic', '/topic/:id'], (req, res) => {
     let sql = 'select id, title from topic';
@@ -51,16 +55,17 @@ app.get(['/topic', '/topic/:id'], (req, res) => {
             let id = req.params.id;
             if(id){
                 sql = 'select * from topic where id=?';
-                conn.query(sql, [id], (err, rows, fields) => {
+                conn.query(sql, [id], (err, topic, fields) => {
                     if(err){
                         console.log(err);
+                        res.status(500).send('Internal Sever Error');
                     } else{
-                        res.render('view', {topics:rows, topic:topics[0], title:1});
+                        res.render('view', {topics:topics, topic:topic[0], id:id});
                     }
                 })
             }
             else{
-                res.render('view', {topics:rows, title:0});
+                res.render('view', {topics:topics, id:id});
             }
         }
     })

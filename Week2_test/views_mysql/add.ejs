@@ -12,17 +12,29 @@
             <li><a href="/topic/<%=topic.id%>"><%= topic.title%></a></li>
         <%})%>
     </ul>
+    <% if(id != 'hell'){ %>
     <article>
-    <% if(id){ %>
-            <h2><%=topic.title%></h2>
-            <%= topic.description %>
-            <div>by <%= topic.author%></div>
+        <h2><%=topic.title%></h2>
+        <%= topic.description %>
+        <div>by <%= topic.author%></div>
         <%} else {%>
             <h2>Welcome</h2>
                 This is server side javascript tutorial.
         <% } %>
     </article>
-    
-    <a href="/topic/add">add</a>
+    <form action="/topic/add", method="post">
+        <p>
+            <input type="text", name="title", placeholder="title">
+        </p>
+        <p>
+            <textarea name="description" placeholder="description"></textarea>
+        </p>
+        <p>
+            <input type="text", name="author", placeholder="author">
+        </p>
+        <p>
+            <input type="submit">
+        </p>
+    </form>
 </body>
 </html>
