@@ -22,7 +22,12 @@
                 This is server side javascript tutorial.
         <% } %>
     </article>
-    
-    <a href="/topic/add">add</a>
+    <ul>
+        <li><a href="/topic/add">add</a><br></li>
+    <% if(id) { %>
+        <li><a href="/topic/<%= topic.id %>/edit">edit</a><br></li>
+        <li><a href="/topic/<%= topic.id %>/delete">delete</a></li>
+        <% } else{} %>
+    </ul>
 </body>
 </html>
