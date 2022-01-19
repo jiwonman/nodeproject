@@ -5,4 +5,6 @@ const indexCtrl = require('../Controller/indexCtrl');
 /* GET home page. */
 router.get('/', indexCtrl.indexRoot);
 
+router.get('/tmp', indexCtrl.Temp);
+
 module.exports = router;
