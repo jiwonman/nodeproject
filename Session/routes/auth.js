@@ -10,4 +10,8 @@ router.get('/logout', loginCtrl.logout);
 
 router.get('/welcome', loginCtrl.Welcome);
 
+router.get('/register', loginCtrl.Register);
+
+router.post('/register', loginCtrl.RegisterAction);
+
 module.exports = router;    
