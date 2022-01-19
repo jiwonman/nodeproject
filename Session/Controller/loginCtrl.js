@@ -29,6 +29,7 @@ const loginAction = (req, res) => {
                 }
             })
         }
+    res.send('<p>잘못 입력하셨습니다</p><a href="/auth/login">login</a>');
     // if(uname === user.username && sha256(pwd+user.salt) === user.password){
     //     req.session.displayName = user.displayName;
     //     return req.session.save(() => {
