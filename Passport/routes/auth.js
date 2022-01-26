@@ -12,9 +12,22 @@ router.get('/welcome', loginCtrl.Welcome);
 
 router.get('/register', loginCtrl.Register);
 
-router.post('/register', loginCtrl.RegisterAction);
+router.post('/register', new FacebookStrategy({
+    clientID : process.env.CLIENT_ID,
+    clientSecret : process.env.APP_SECRET,
+    callbackURL : "/auth/facebook/callback"
+}, loginCtrl.Facebook));
 
 router.post('/login', passport.authenticate('local', loginCtrl.loginAction));
+
+router.get('/facebook', passport.authenticate('facebook'));                             // 1번째 왕복
+
+router.get('/facebook/callback', passport.authenticate('facebook', {                    // 2번째 왕복 , 타사 인증은 대체로 라우터가 2개
+    successRedirect : '/auth/welcome',
+    failureRedirect : '/auth/login'
+}));
+
+passport.use(loginCtrl.Facebook);
 
 passport.use(new LocalStrategy(loginCtrl.Passport));
 
