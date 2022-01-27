@@ -1,4 +1,4 @@
-const bkfd2Password = require('pbkdf2-password');
+const bkfd2Password = require('pbkdf2-password')
 const hasher = bkfd2Password();
 
 function encryption(parameters) {
@@ -15,6 +15,7 @@ function encryption(parameters) {
 }
 
 function decryption(password, savedSalt, savedHash){
+    console.log(password, savedSalt, savedHash)
     return new Promise((resolve, reject) => {
         hasher({
             password : password,
@@ -31,5 +32,5 @@ function decryption(password, savedSalt, savedHash){
 
 module.exports = {
     encryption,
-    decryption
+    decryption,
 }

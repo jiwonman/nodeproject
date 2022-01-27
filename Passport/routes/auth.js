@@ -1,38 +1,44 @@
 const express = require('express');
 const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
 const router = express.Router();
 const loginCtrl = require('../Controller/loginCtrl');
+const { isLoggedIn, isNotLoggedIn } = require('../middlewares/login-middlewares');
 
 router.get('/login', loginCtrl.loginRoot);
 
-router.get('/logout', loginCtrl.logout);
+router.get('/logout', isLoggedIn, loginCtrl.logout);
 
 router.get('/welcome', loginCtrl.Welcome);
 
 router.get('/register', loginCtrl.Register);
 
-router.post('/register', new FacebookStrategy({
-    clientID : process.env.CLIENT_ID,
-    clientSecret : process.env.APP_SECRET,
-    callbackURL : "/auth/facebook/callback"
-}, loginCtrl.Facebook));
+router.post('/login', isNotLoggedIn, passport.authenticate('local-login', {
+    successRedirect: '/auth/welcome',
+    failureRedirect : '/auth/login',
+    failureFlash : true
+}))
 
-router.post('/login', passport.authenticate('local', loginCtrl.loginAction));
+router.post('/register', isNotLoggedIn, passport.authenticate('local-signup', {
+    successRedirect: '/auth/welcome',
+    failureRedirect: '/auth/register',
+    failureFlash: true
+}))
 
-router.get('/facebook', passport.authenticate('facebook'));                             // 1번째 왕복
+router.get('/google', passport.authenticate('google-login', {
+    scope : ["email", "profile"]
+}))
 
-router.get('/facebook/callback', passport.authenticate('facebook', {                    // 2번째 왕복 , 타사 인증은 대체로 라우터가 2개
-    successRedirect : '/auth/welcome',
-    failureRedirect : '/auth/login'
-}));
+router.get('/google/callback',  passport.authenticate('google-login',{
+    successRedirect: '/auth/welcome',
+    failureRedirect: '/auth/login',
+    failureFlash: true
+}))
 
-passport.use(loginCtrl.Facebook);
+// router.get('/facebook', passport.authenticate('facebook'));                             // 1번째 왕복
 
-passport.use(new LocalStrategy(loginCtrl.Passport));
+// router.get('/facebook/callback', passport.authenticate('facebook', {                    // 2번째 왕복 , 타사 인증은 대체로 라우터가 2개
+//     successRedirect : '/auth/welcome',
+//     failureRedirect : '/auth/login'
+// }));
 
-passport.serializeUser(loginCtrl.serialize);
-
-passport.deserializeUser(loginCtrl.deserialize);
-
-module.exports = router;    
+module.exports = router;

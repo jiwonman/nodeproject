@@ -15,8 +15,8 @@ handleDisconnect(db)
 function handleDisconnect (client) {
     client.on('error', (error) => {
         if(!error.fatal) return;
-        if(error.code !== 'PROTOCOL_CONNECTION_LOST') throw error;
-        console.log('> Re-connecting lost MYSQL connection ' + error.stack);
+        if(error.code !== 'PROTOCOL_CONNECTION_LOST') throw err;
+        console.error('> Re-connecting lost MYSQL connection ' + error.stack);
         db = mysql.createConnection(client.config);
         handleDisconnect(db);
         db.connect();

@@ -6,14 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <title>Login</title>
+    <style>
+        #google_login_btn {
+                background: url("/images/google.png")
+                    no-repeat; 
+                background-size: 100% 100%;
+                cursor: pointer;
+                width: 200px;
+                height: 50px;
+            }
+    </style>
 </head>
 <body>
     <h1>Login</h1>
     <form action="/auth/login" method="post">
-        <p><input type="text" name="username" placeholder="username"></p>
-        <p><input type="password" name="password" placeholder="password"></p>
+        <p><input type="text" name="user_id" placeholder="user_id"></p>
+        <p><input type="password" name="user_pw" placeholder="user_pw"></p>
         <p><button type="submit">Login</button></p>
     </form>
     <a href="/auth/facebook">facebook</a>
+    <form method="GET" action="/auth/google">
+        <input id="google_login_btn" type="submit" name="" />
+    </form>
 </body>
 </html>

@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const Session = require('./Config/SessionConn'); 
 const passport = require('passport');
+const flash = require('connect-flash');
 const passportConfig = require('./passport/passport');
 
 const indexRouter = require('./routes/index');
@@ -29,6 +30,7 @@ passportConfig();
 
 app.use(passport.initialize());                   // passport를 초기화하고 애플리케이션에서 사용하도록 세팅
 app.use(passport.session());                      // passport를 이용해서 인증 작업을 사용할 때 session을 사용하는 것 <주의 : session 코드 뒤쪽에 붙어야함>
+app.use(flash());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
