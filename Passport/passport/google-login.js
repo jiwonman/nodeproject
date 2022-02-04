@@ -15,12 +15,10 @@ module.exports = () => {
         console.log(user);
         if (user == 0){
             const insertuser = await authDAO.insertGoogleUser(profile);
-            const newuser = await authDAO.passportCheckUser(profile);
+            const newuser = await authDAO.passportCheckGoogle(profile);
             return done(null, newuser);
         }
-        else {
             return done(null, user)
-        }
     } catch (error) {
         return done(null, false, { message: error })
     }

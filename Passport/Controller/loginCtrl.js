@@ -15,10 +15,16 @@ const logout = async (req, res) => {
 const Welcome = (req, res) => {
     console.log('welcome', req.session.passport);
     if(req.session.passport){
+        if(req.session.passport.user.displayName){
         res.send(`
         <h1>Hello, ${req.session.passport.user.displayName}</h1>
         <a href="/auth/logout">logout</a>
         `);
+        } else {
+            res.send(`<h1>Hello, ${req.session.passport.user[0].displayName}</h1>
+            <a href="/auth/logout">logout</a>
+            `)
+        }
     } else {
         res.send(`
         <h1>Welcome</h1>
