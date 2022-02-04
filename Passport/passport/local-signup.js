@@ -13,7 +13,7 @@ module.exports = () => {
             let parameter = {
                 "user_id" : user_id,
                 "user_pw" : user_pw,
-                "name" : req.body.name,
+                "displayName" : req.body.displayName,
             }
             const checkUser = await authDAO.checkUserID(parameter)
             const result = await bkfd.encryption(parameter)

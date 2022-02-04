@@ -16,7 +16,7 @@ const Welcome = (req, res) => {
     console.log('welcome', req.session.passport);
     if(req.session.passport){
         res.send(`
-        <h1>Hello, ${req.session.passport.user.name}</h1>
+        <h1>Hello, ${req.session.passport.user.displayName}</h1>
         <a href="/auth/logout">logout</a>
         `);
     } else {
