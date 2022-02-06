@@ -69,11 +69,37 @@ function passportCheckUserLogin(parameter){
         })
     })
 }
+
+function passportCheckFacebook(parameter) {
+    return new Promise(function (resolve, reject) {
+        console.log("CHeck DB");
+        let queryData = `SELECT user_id, displayName, provider, email, name FROM Facebook WHERE user_id = ?`;
+        db.query(queryData, [parameter.id], function (error, db_data){
+            if(error) resolve(error)
+            if(db_data[0] != undefined) resolve(db_data)
+            else resolve(0)
+        })
+    })
+}
+
+function insertFacebookUser(parameter){
+    return new Promise(function (resolve, reject) {
+        let queryData = `INSERT INTO Facebook (user_id, displayName, provider, email, name) VALUES (?,?,?,?,?)`;
+        db.query(queryData, [parameter.id, parameter.displayName, parameter.provider, parameter._json.email, parameter._json.name], function (error, db_data){
+            if (error) { reject(error) }
+            if (db_data.affectedRows != 0) resolve('유저정보 입력완료')
+            else reject('실패')
+        })
+    })
+}
+
 module.exports = {
     passportCheckUser,
     insertUser,
     checkUserID,
     passportCheckGoogle,
     passportCheckUserLogin,
-    insertGoogleUser
+    insertGoogleUser,
+    passportCheckFacebook,
+    insertFacebookUser,
 }

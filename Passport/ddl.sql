@@ -14,3 +14,10 @@ salt varchar(255) not null,
 displayName varchar(50) not null
 );
 
+create table Facebook(
+user_id varchar(255) not null,
+displayName varchar(50) not null,
+provider varchar(50) not null,
+email varchar(100) not null,
+name varchar(50) not null
+);

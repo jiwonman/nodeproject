@@ -15,6 +15,19 @@
                 width: 200px;
                 height: 50px;
             }
+
+        #facebook_login_btn {
+            background: url("/images/facebook.png")
+                no-repeat;
+            background-size: 100% 100%;
+                cursor: pointer;
+                width: 200px;
+                height: 50px;
+        }
+        
+        form {
+            padding : 0.2%;
+        }
     </style>
 </head>
 <body>
@@ -24,7 +37,9 @@
         <p><input type="password" name="user_pw" placeholder="user_pw"></p>
         <p><button type="submit">Login</button></p>
     </form>
-    <a href="/auth/facebook">facebook</a>
+    <form method="GET" action="/auth/facebook">
+        <input id="facebook_login_btn" type="submit" name="" />
+    </form>
     <form method="GET" action="/auth/google">
         <input id="google_login_btn" type="submit" name="" />
     </form>

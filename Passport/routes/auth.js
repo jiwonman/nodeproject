@@ -16,29 +16,31 @@ router.post('/login', isNotLoggedIn, passport.authenticate('local-login', {
     successRedirect: '/auth/welcome',
     failureRedirect : '/auth/login',
     failureFlash : true
-}))
+}));
 
 router.post('/register', isNotLoggedIn, passport.authenticate('local-signup', {
     successRedirect: '/auth/welcome',
     failureRedirect: '/auth/register',
     failureFlash: true
-}))
+}));
 
 router.get('/google', passport.authenticate('google-login', {
     scope : ["email", "profile"]
-}))
+}));
 
 router.get('/google/callback',  passport.authenticate('google-login',{
     successRedirect: '/auth/welcome',
     failureRedirect: '/auth/login',
     failureFlash: true
-}))
+}));
 
-// router.get('/facebook', passport.authenticate('facebook'));                             // 1번째 왕복
+router.get('/facebook', passport.authenticate('facebook-login', {
+    scope : "email"
+}));                             // 1번째 왕복
 
-// router.get('/facebook/callback', passport.authenticate('facebook', {                    // 2번째 왕복 , 타사 인증은 대체로 라우터가 2개
-//     successRedirect : '/auth/welcome',
-//     failureRedirect : '/auth/login'
-// }));
+router.get('/facebook/callback', passport.authenticate('facebook-login', {                    // 2번째 왕복 , 타사 인증은 대체로 라우터가 2개
+    successRedirect : '/auth/welcome',
+    failureRedirect : '/auth/login'
+}));
 
 module.exports = router;
